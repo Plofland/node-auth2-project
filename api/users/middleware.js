@@ -1,24 +1,14 @@
 const jwt = require('jsonwebtoken');
-const {jwtSecret} = require('../../config/secrets')
-
-module.exports = {
-  isValid,
-  checkRole
-};
+const { jwtSecret } = require('../../config/secrets');
 
 const isValid = (user) => {
-  return Boolean(user.username && user.password && typeof user.password === "string");
+  return Boolean(
+    user.username &&
+      user.password &&
+      typeof user.password === 'string'
+  );
 };
 
-const checkRole = (role) => (req, res, next) => {
-  if (req.decodedToken.role === role) {
-    next();
-  } else {
-    res
-      .status(403)
-      .json('You are not an admin, access restricted');
-  }
-}
 
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
@@ -38,4 +28,9 @@ const restricted = (req, res, next) => {
       }
     });
   }
-}
+};
+
+module.exports = {
+  isValid,
+  restricted
+};
