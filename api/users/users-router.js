@@ -27,17 +27,15 @@ router.post('/register', (req, res) => {
 
     Users.add(credentials)
       .then((user) => {
-        res.status(201).json({ data: user });
+        res.status(201).json(user);
       })
       .catch((err) => {
         res.status(500).json({ message: err.message });
       });
   } else {
-    res
-      .status(400)
-      .json({
-        message: 'Please provide username and password'
-      });
+    res.status(400).json({
+      message: 'Please provide username and password'
+    });
   }
 });
 
@@ -52,12 +50,10 @@ router.post('/login', (req, res) => {
           bcryptjs.compareSync(password, user.password)
         ) {
           const token = makeToken(user);
-          res
-            .status(200)
-            .json({
-              message: `Welcome to the API ${user.username}`,
-              token
-            });
+          res.status(200).json({
+            message: `Welcome to the API, ${user.username}`,
+            token
+          });
         } else {
           res
             .status(401)

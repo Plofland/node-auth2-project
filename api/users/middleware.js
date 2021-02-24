@@ -9,7 +9,6 @@ const isValid = (user) => {
   );
 };
 
-
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
 
@@ -20,7 +19,7 @@ const restricted = (req, res, next) => {
       if (err) {
         res
           .status(401)
-          .json('The token is bad ' + err.message);
+          .json('The token is bad, ' + err.message);
       } else {
         //this is how we will have access to the token info
         req.decodedToken = decoded;
